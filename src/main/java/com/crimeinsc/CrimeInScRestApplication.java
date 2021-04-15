@@ -1,9 +1,14 @@
-package com;
+package com.crimeinsc;
 
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +21,9 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-@SpringBootApplication
-@ComponentScan({"com.crimeinsc.rest.CrimeApiController"})
+@SpringBootApplication(scanBasePackages = {"com.crimeinsc"})
+@EnableAsync
+@EnableScheduling
 public class CrimeInScRestApplication {
 
 	public static void main(String[] args) {
@@ -49,6 +55,7 @@ public class CrimeInScRestApplication {
 					}
 					getCrimeData(apiKey, statement);
 				}
+				conn.close();
 
 			} catch (IOException e) {
 				System.err.println("Could not read application.properties file. " +e.getMessage());
@@ -105,7 +112,7 @@ public class CrimeInScRestApplication {
 						String countyName = ((JSONObject) countyResultObject).getString("county_name");
 						String ori = ((JSONObject) countyResultObject).getString("ori");
 
-						//Some of the police stations service multiple counties. For now, just disregard those stations. There are 18 such stations in a total of 469
+						//Some of the police stations service multiple counties. Just disregard those stations (at least for now). There are 18 such stations in a total of 469
 						if(!countyName.contains(";") && !oriList.contains(ori)) {
 							statement.execute(
 									String.format("insert into ORI_COUNTY_TABLE (ori, county_name) values('%s', '%s');", ori, countyName));
@@ -123,14 +130,14 @@ public class CrimeInScRestApplication {
 		try{
 
 			Set<String> crimeTypeSet = new HashSet<>(java.util.Arrays.asList(
-//					"aggravated-assault",
-//					"burglary",
-//					"larceny",
-//					"motor-vehicle-theft",
-//					"homicide",
-//					"rape",
-//					"robbery",
-//					"arson",
+					"aggravated-assault",
+					"burglary",
+					"larceny",
+					"motor-vehicle-theft",
+					"homicide",
+					"rape",
+					"robbery",
+					"arson",
 					"violent-crime",
 					"property-crime"
 			));
@@ -181,13 +188,24 @@ public class CrimeInScRestApplication {
 
 		try {
 			statement.execute("insert into COUNTY_CRIME_TABLE (county_name, crime_type, crime_year, total) " +
-					"(select county_name, crime_type, crime_year, sum(total), from ORI_COUNTY_TABLE left join ORI_CRIME_TABLE" +
-					"on ORI_COUNTY_TABLE.ori = ORI_CRIME_TABLE.ori" +
-					"where" +
-					" crime_type is not null" +
+					"(select county_name, crime_type, crime_year, sum(total), from ORI_COUNTY_TABLE left join ORI_CRIME_TABLE " +
+					"on ORI_COUNTY_TABLE.ori = ORI_CRIME_TABLE.ori " +
+					"where " +
+					"crime_type is not null " +
 					"group by county_name, crime_type, crime_year);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedMethods("*");
+			}
+		};
 	}
 }

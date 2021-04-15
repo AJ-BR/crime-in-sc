@@ -1,13 +1,13 @@
-package com.crimeinsc.crimeinscrest;
+package com.crimeinsc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
-//class CrimeInScRestApplicationTests {
-//
+@SpringBootTest
+class CrimeInScRestApplicationTests {
+
 //	@Test
 //	void contextLoads() {
 //	}
-//
-//}
+
+}
