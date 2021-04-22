@@ -41,7 +41,7 @@ public class CrimeApiRestControllerTest {
     public void testInvalidUrlReqest() throws Exception {
         mockMvc.perform(get("/api?clasdkjfounty=beaufort&crime=aggravated-assault&year=2011")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isBadRequest());
     }
 
     @Test
