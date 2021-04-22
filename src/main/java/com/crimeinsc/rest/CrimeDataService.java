@@ -1,8 +1,6 @@
 package com.crimeinsc.rest;
 
 import com.crimeinsc.CrimeInScRestApplication;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,6 +14,9 @@ public class CrimeDataService {
     private Connection conn;
 
     public CrimeDataService() {
+    }
+
+    private void setConnection() {
         Properties prop = new Properties();
         InputStream inputStream = CrimeInScRestApplication.class.getClassLoader().getResourceAsStream("application.properties");
 
@@ -27,25 +28,22 @@ public class CrimeDataService {
                 conn = DriverManager.getConnection(prop.getProperty("spring.datasource.url"),
                         prop.getProperty("spring.datasource.username"),
                         prop.getProperty("spring.datasource.password"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
     public CrimeDataEntity getCrimeData(String county, String crime, int year) {
+        if (conn == null) {
+            setConnection();
+        }
         CrimeDataEntity crimeDataEntity = null;
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(String.format("select total from COUNTY_CRIME_TABLE where upper(county_name) = upper('%s') and upper(crime_type) = upper('%s') and crime_year = %d;", county, crime, year));
-            if(resultSet.next()) {
+            if (resultSet.next())
                 crimeDataEntity = new CrimeDataEntity(county, crime, year, resultSet.getInt("total"));
-            }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
