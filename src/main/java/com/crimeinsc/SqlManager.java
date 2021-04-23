@@ -56,25 +56,7 @@ enum SqlManager {
     };
 
     //The collection of crimes to get info from
-    final Set<String> crimeTypeSet = new HashSet<>(java.util.Arrays.asList(
-            "aggravated-assault"
-//            "burglary-breaking-and-entering",
-//            "larceny-theft-offenses",
-//            "motor-vehicle-theft",
-//            "homicide-offenses",
-//            "justifiable-homicide",
-//            "rape",
-//            "statutory-rape",
-//            "kidnapping-abduction",
-//            "robbery",
-//            "arson",
-//            "crime-against-property",
-//            "hacking-computer-invasion",
-//            "prostitution",
-//            "gambling-offenses",
-//            "drunkenness",
-//            "driving-under-the-influence"
-    ));
+    final Set<String> crimeTypeSet = Constants.CRIME_TYPE_SET;
 
     public void populateCrimeData(String apiKey, Statement statement) {
 
@@ -149,7 +131,7 @@ enum SqlManager {
                     for (String crimeType : crimeTypeSet) {
                         //First populate the COUNTY_ORI_TABLE
                         HttpRequest request = HttpRequest.newBuilder()
-                                .uri(URI.create("https://api.usa.gov/crime/fbi/sapi/api/data/nibrs/" + crimeType + "/offense/agencies/" + ori + "/COUNT?API_KEY=" + apiKey))
+                                .uri(URI.create("https://api.usa.gov/crime/fbi/sapi/api/data/nibrs/" + crimeType.toLowerCase() + "/offense/agencies/" + ori + "/COUNT?API_KEY=" + apiKey))
                                 .build();
 
                         HttpResponse<String> response = null;
@@ -167,7 +149,7 @@ enum SqlManager {
                                 int total = (int) ((JSONObject) countyResultObject).get("offense_count");
                                 int year = (int) ((JSONObject) countyResultObject).get("data_year");
                                 statement.execute(
-                                        String.format("insert into ORI_CRIME_TABLE (ori, crime_type, crime_year, total) values('%s', '%s', %d, %d);", ori, crimeType, year, total));
+                                        String.format("insert into ORI_CRIME_TABLE (ori, crime_type, crime_year, total) values('%s', '%s', %d, %d);", ori, crimeType.toLowerCase(), year, total));
 
                             } catch (SQLException e) {
                                 e.printStackTrace();

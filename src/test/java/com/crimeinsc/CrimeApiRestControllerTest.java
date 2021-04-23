@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -30,14 +29,6 @@ public class CrimeApiRestControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testValidRequest() throws Exception {
-        mockMvc.perform(get("/api?county=aiken&crime=aggravated-assault&year=2002")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"county\":\"aiken\",\"crime\":\"aggravated-assault\",\"year\":2002,\"total\":338}"));
-    }
-
-    @Test
     public void testInvalidUrlReqest() throws Exception {
         mockMvc.perform(get("/api?clasdkjfounty=beaufort&crime=aggravated-assault&year=2011")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -45,11 +36,34 @@ public class CrimeApiRestControllerTest {
     }
 
     @Test
-    public void testInvalidCrimeYearRequest() throws Exception {
+    public void testInvalidCrimeYearParam() throws Exception {
         mockMvc.perform(get("/api?county=charleston&crime=aggravated-assault&year=1776")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(header().stringValues("Invalid-Param", "year"))
+                .andExpect(content().json("{'message': 'Invalid year. Must be between 1991-2019'}"));
     }
+
+    @Test
+    public void testInvalidCountyParam() throws Exception {
+        mockMvc.perform(get("/api?county=Quarth&crime=aggravated-assault&year=2007")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(header().stringValues("Invalid-Param", "county"))
+                .andExpect(content().json("{'message': 'County is invalid'}"));
+    }
+
+    @Test
+    public void testInvalidCrimeParam() throws Exception {
+        mockMvc.perform(get("/api?county=georgetown&crime=blueShirt&year=2008")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(header().stringValues("Invalid-Param", "crime"))
+                .andExpect(content().json("{'message': Invalid crime type. Must be one from the predefined Set on the README'}"));
+    }
+
+
+
 
 
 }

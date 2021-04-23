@@ -27,9 +27,6 @@ import java.util.Properties;
 @EnableScheduling
 public class CrimeInScRestApplication extends SpringBootServletInitializer {
 
-    @Autowired
-    Connection conn;
-
     public static void main(String[] args) {
         SpringApplication.run(CrimeInScRestApplication.class, args);
 
