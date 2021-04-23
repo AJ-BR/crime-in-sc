@@ -4,7 +4,7 @@
 The data used comes from the FBI's Crime Data Explorer (CDE) Web API. https://crime-data-explorer.fr.cloud.gov/api
 Using the FBI CDE API, you can get crime info for each state and Originating Agency Identification (ORI) inside the state. An ORI is assigned to 
 every law enforcement agency. But there are multiple police stations/law enforcement agencies in a county. So I essentially grouped all the ORIs for each county and aggregated
-the ORI crime info to be linked to its respective county. 
+the ORI crime info to be linked to its respective county. The data will be stored on a local H2 database to make the web requests quicker, rather than the app having to reach out to FBI CDE API every time the app receives a request. 
 
 ### A working build of this project is uploaded on Heroku:
 
