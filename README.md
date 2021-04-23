@@ -6,7 +6,17 @@ Using the FBI CDE API, you can get crime info for each state and Originating Age
 every law enforcement agency. But there are multiple police stations/law enforcement agencies in a county. So I essentially grouped all the ORIs for each county and aggregated
 the ORI crime info to be linked to its respective county. 
 
-I validated many of the results against SLED's (South Carolina Law Enforcement Division) data. For aggravated assault, the data from FBI CDE and Sled are very close. 
+I checked many of the results against SLED's (South Carolina Law Enforcement Division) data. For aggravated assault, the data from FBI CDE and Sled are very close. Their 2015 
+crime book can be accesssed at: https://www.sled.sc.gov/forms/statistics/2015%20Crime%20in%20South%20Carolina.pdf
+
+![Screenshot](/images/sled_pic.PNG)
+![Screenshot](/images/abbeville.PNG)
+![Screenshot](/images/aiken.PNG)
+
+It wasn't always close though...
+
+
+
 
 
 
