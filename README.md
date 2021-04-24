@@ -106,11 +106,11 @@ the ORI crime info to be linked to its respective county. The data will be store
 
 Here are comparisons of crime-in-sc web API endpoint and SLED: 
 
-![Screenshot](/images/richland_sled.PNG)
+![Screenshot](/images/richland_sled_data.PNG)
 ![Screenshot](/images/richland.PNG)
-![Screenshot](/images/greenville_sled.PNG)
+![Screenshot](/images/greenville_sled_data.PNG)
 ![Screenshot](/images/greenville.PNG)
-![Screenshot](/images/charleston_sled.PNG)
+![Screenshot](/images/charleston_sled_data.PNG)
 ![Screenshot](/images/charleston.PNG)
 
 
