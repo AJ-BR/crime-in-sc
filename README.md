@@ -9,7 +9,8 @@ the ORI crime info to be linked to its respective county. The data will be store
 ### A working build of this project is uploaded on Heroku:
 
 ### Sample link: https://crime-in-sc.herokuapp.com/api?county=charleston&crime=robbery&year=2011
-                The above link has parameters county=charleston, crime=robbery, and year=2011. 
+
+The above link has parameters county=charleston, crime=robbery, and year=2011. 
 
 
 ## Build Project
