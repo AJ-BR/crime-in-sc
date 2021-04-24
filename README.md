@@ -102,19 +102,9 @@ the ORI crime info to be linked to its respective county. The data will be store
             drunkenness,
             driving-under-the-influence
             
- I checked many of the results against SLED's (South Carolina Law Enforcement Division) data. For aggravated assault, the data from FBI CDE and Sled are very close. Their 2015 
-crime book can be accesssed at: https://www.sled.sc.gov/forms/statistics/2015%20Crime%20in%20South%20Carolina.pdf
+ I checked many of the results against SLED's (South Carolina Law Enforcement Division) NIBR reporting data. For aggravated assault, the data from FBI CDE NIBR reports and Sled are very close. Their 2015 crime data can be found at http://beyond2020.sled.sc.gov/
 
-![Screenshot](/images/sled_pic.PNG)
-![Screenshot](/images/abbeville.PNG)
-![Screenshot](/images/aiken.PNG)
-
-It wasn't always close though...
-
-![Screenshot](/images/darlington_sled.PNG)
-![Screenshot](/images/darlington.PNG)
-
-However for the 3 highest crime counties in South Carolina (Richland, Greenville, and Charelston), the results were still close
+Here are comparisons of crime-in-sc web API endpoint and SLED: 
 
 ![Screenshot](/images/richland_sled.PNG)
 ![Screenshot](/images/richland.PNG)
