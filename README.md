@@ -1,3 +1,5 @@
+## 2023 upate: Current build is offline
+
 ### crime-in-sc
 
 ### This crime-in-sc project currently serves as a Web API endpoint for getting crime information on each county in South Carolina.
@@ -6,9 +8,9 @@ Using the FBI CDE API, you can get crime info for each state and Originating Age
 every law enforcement agency. But there are multiple police stations/law enforcement agencies in a county. So I essentially grouped all the ORIs for each county and aggregated
 the ORI crime info to be linked to its respective county. The data will be stored on a local H2 database to make the web requests quicker, rather than the app having to reach out to FBI CDE API every time the app receives a request. 
 
-### A working build of this project is uploaded on Heroku:
+###  ~working build of this project is uploaded on Heroku:~
 
-### Sample link: https://crime-in-sc.herokuapp.com/api?county=charleston&crime=robbery&year=2011
+### ~Sample link: https://crime-in-sc.herokuapp.com/api?county=charleston&crime=robbery&year=2011~
 
 The above link has parameters county=charleston, crime=robbery, and year=2011. 
 
