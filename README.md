@@ -1,4 +1,4 @@
-### 2023 upate: Current build is offline
+### 2023 upate: Current build is broken and no longer being updated
 
 ### crime-in-sc
 
