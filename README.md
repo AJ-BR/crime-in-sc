@@ -1,4 +1,4 @@
-### 2023 upate: Current build is broken and no longer being updated
+### 2023 upate: Current build is broken and will no lnoger be updated
 
 ### crime-in-sc
 
