@@ -1,7 +1,5 @@
 ### 2023 upate: This project is out of date and the below Heroku link does not work. Please refer to crime-in-sc-flask instead
 
-### crime-in-sc
-
 ### This crime-in-sc project currently serves as a Web API endpoint for getting crime information on each county in South Carolina.
 The data used comes from the FBI's Crime Data Explorer (CDE) Web API. https://crime-data-explorer.fr.cloud.gov/api
 Using the FBI CDE API, you can get crime info for each state and Originating Agency Identification (ORI) inside the state. An ORI is assigned to 
