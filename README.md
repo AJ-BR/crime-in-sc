@@ -1,4 +1,4 @@
-### 2023 upate: Current build is broken and will no lnoger be updated
+### 2023 upate: This project is out of date and the below Heroku link does not work. Please refer to crime-in-sc-flask instead
 
 ### crime-in-sc
 
